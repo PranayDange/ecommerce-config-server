@@ -1,0 +1,37 @@
+server:
+  port: 8081
+jwt:
+  secretKey: fgfgsrggdsgsgdsggrgsdgg4r3443545dfgfgdfgfdfgfdsdf
+spring:
+  
+#api gateway config
+  cloud:
+    gateway:
+      routes:
+        - id: OrderService
+          uri: lb://OrderService
+          predicates:
+            - Path=/api/v1/orders/**
+          filters:
+            - StripPrefix=2
+            - name: LoggingOrdersFilters
+            - name: Authentication
+              args:
+                isEnabled: true
+            - name: Authorization
+              args:
+                allowedRoles: ADMIN, SUPER_ADMIN
+        - id: inventoryService
+          uri: lb://inventoryService
+          predicates:
+            - Path=/api/v1/inventory/**
+          filters:
+            - StripPrefix=2
+            - name: LoggingOrdersFilters
+            - name: Authentication
+
+
+  eureka:
+    client:
+      service-url:
+        defaultZone: http://localhost:8761/eureka
