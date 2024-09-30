@@ -18,10 +18,7 @@ spring:
             - name: Authentication
               args:
                 isEnabled: true
-            - name: Authorization
-              args:
-                isEnabled: true
-                allowedRoles: ADMIN, SUPER_ADMIN
+           
         - id: inventoryService
           uri: lb://inventoryService
           predicates:
