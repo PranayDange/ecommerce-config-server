@@ -1,10 +1,10 @@
 server:
   port: 8081
+
 jwt:
   secretKey: fgfgsrggdsgsgdsggrgsdgg4r3443545dfgfgdfgfdfgfdsdf
+
 spring:
-  
-#api gateway config
   cloud:
     gateway:
       routes:
@@ -20,6 +20,7 @@ spring:
                 isEnabled: true
             - name: Authorization
               args:
+                isEnabled: true
                 allowedRoles: ADMIN, SUPER_ADMIN
         - id: inventoryService
           uri: lb://inventoryService
@@ -29,7 +30,6 @@ spring:
             - StripPrefix=2
             - name: LoggingOrdersFilters
             - name: Authentication
-
 
   eureka:
     client:
